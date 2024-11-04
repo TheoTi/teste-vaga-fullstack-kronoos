@@ -1,0 +1,29 @@
+org: theodev
+service: kronoos
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: sa-east-1
+  memorySize: 128
+
+  iam:
+    role:
+      statements:
+
+package:
+  individually: true
+
+build:
+  esbuild:
+    bundle: true
+    minify: true
+    sourcemap: false
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - httpApi:
+          path: /
+          method: get
